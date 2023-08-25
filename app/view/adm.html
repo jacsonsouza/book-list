@@ -23,25 +23,40 @@
 
     <main>
       <div id="formulario">
-        <form action="">
+        <form action="/livros/cadastro" method="post">
           <div id="formulario-logo">
             <img src="/assets/resources/images/logo.png" alt="" />
           </div>
           <div class="div-source">
-            <input type="text" id="page" placeholder="Página do livro" />
-          </div>
-          <div class="div-source">
-            <input type="text" id="title" placeholder="Título do livro" />
-          </div>
-          <div class="div-source">
-            <input type="text" id="image-card" placeholder="Link da imagem" />
+            <input
+              type="number"
+              id="id"
+              name="id"
+              required
+              placeholder="Id do livro"
+            />
           </div>
           <div class="div-source">
             <input
               type="text"
-              id="classification"
-              placeholder="Classificação do livro"
+              id="title"
+              name="title"
+              placeholder="Título do livro"
             />
+          </div>
+          <div class="div-source">
+            <input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Descrição"
+            />
+          </div>
+          <div class="div-source">
+            <input type="text" id="image" name="image" placeholder="Imagem" />
+          </div>
+          <div class="div-source">
+            <input type="text" id="author" name="author" placeholder="Autor" />
           </div>
           <div class="button">
             <button type="submit" class="bt-questions" id="bt">

@@ -1,20 +1,21 @@
 'use strict';
-const express = require('express');
-const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
+import express from 'express';
+import exphbs from 'express-handlebars';
+import bodyparser from 'body-parser';
+
+import db from './app/util/db.js';
+import userRoutes from './app/util/routes.js';
 
 const app = express();
-const db = require('./app/util/db.js');
-const userRoutes = require('./app/util/routes.js');
 
 app.use(
-  express.static('/home/jacson/Documentos/web2/organizador-de-series-livros')
+  express.static('/home/jacson/Documentos/My-projects/book-list/book-list')
 );
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 app.use(express.json());
-app.use('/book-list', userRoutes);
+app.use('/', userRoutes);
 
 db.sync()
   .then(() => {

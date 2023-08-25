@@ -1,20 +1,50 @@
-const User = require('../model/user.js');
-const LocalStorage = require('node-localstorage').LocalStorage;
+import User from '../model/User.js';
+import UserBooks from '../model/UserBooks.js';
+import { LocalStorage } from 'node-localstorage';
 let local = new LocalStorage('./scratch');
 
-module.exports = class Controller {
+class UserController {
+  static errors = [];
+
+  static validUser(email, password, passConfirm) {
+    if (!email) {
+      this.errors.push('E-mail inválido!');
+    }
+
+    if (!password) {
+      this.errors.push('Senha inválida!');
+    }
+
+    if (passConfirm !== password) {
+      this.errors.push('Senhas não correspondem!');
+    }
+  }
+
   static createUserSave(req, res) {
+    const { email, name, password, passConfirm } = req.body;
+
+    this.validUser(email, password, passConfirm);
+
+    if (this.errors.length !== 0)
+      return res.status(422).json({ errors: this.errors });
+
+    User.findOne({ where: { email: email } })
+      .then((data) => {
+        if (data) return res.status(422).json({ msg: 'E-mail já cadastrado!' });
+      })
+      .catch((error) => console.log(error));
+
     const user = {
-      email: req.body.email,
-      name: req.body.name,
-      password: req.body.password,
+      email: email,
+      name: name,
+      password: password,
     };
-    console.log(req.body.email);
+
     User.create(user)
       .then(() => {
         res.cookie('logged', 'true');
         res.cookie('user', user.name);
-        res.redirect('/book-list');
+        res.redirect('/');
       })
       .catch((err) => console.log(err));
   }
@@ -22,13 +52,7 @@ module.exports = class Controller {
   static userLogin(req, res) {
     const { email, password } = req.body;
 
-    if (!email) {
-      return res.status(422).json({ msg: 'O email é obrigatório!' });
-    }
-
-    if (!password) {
-      return res.status(422).json({ msg: 'A senha é obrigatório!' });
-    }
+    this.validUser(email, password);
 
     User.findOne({ where: { email: email } })
       .then((data) => {
@@ -42,7 +66,7 @@ module.exports = class Controller {
         local.setItem('idUser', data.id);
         res.cookie('logged', 'true');
         res.cookie('user', data.name);
-        res.redirect('/book-list');
+        res.redirect('/');
       })
       .catch((err) => console.log('Deu errado' + err));
   }
@@ -56,4 +80,6 @@ module.exports = class Controller {
       })
       .catch((err) => console.log('Deu errado' + err));
   }
-};
+}
+
+export default UserController;

@@ -23,7 +23,7 @@
     <!--Início do formulário-->
     <main>
       <div id="form-fields">
-        <form action="/book-list/add" method="POST" id="frm">
+        <form action="/cadastro" method="POST" id="frm">
           <div id="form-logo">
             <img src="/assets/resources/images/logo.png" alt="" />
           </div>
@@ -51,15 +51,15 @@
               id="password"
               name="password"
               minlength="7"
-              pattern="^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$"
               placeholder="Senha"
             />
           </div>
+          <!-- pattern="^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$" -->
           <div class="fields">
             <input
               type="password"
-              id="confirmation"
-              name="confirmation"
+              id="pass-confirm"
+              name="pass-confirm"
               placeholder="Confirme a senha"
             />
           </div>
@@ -74,7 +74,7 @@
     <div id="footer"></div>
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script src="/node_modules/materialize-css/dist/js/materialize.js"></script>
-    <script type="module" src="/app/pages/common.js"></script>
-    <script type="module" src="/app/pages/cadastro/cadastro.js"></script>
+    <script type="module" src="/assets/resources/scripts/common.js"></script>
+    <script type="module" src="/assets/resources/scripts/sign-up.js"></script>
   </body>
 </html>

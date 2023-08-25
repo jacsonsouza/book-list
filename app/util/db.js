@@ -1,10 +1,10 @@
 'use strict';
 
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('user', 'jacson-souza', '428537', {
+const sequelize = new Sequelize('book_list', 'root', 'book-list', {
   host: 'localhost',
-  dialect: 'mariadb',
+  dialect: 'mysql',
 });
 
 try {
@@ -14,4 +14,4 @@ try {
   console.log('Não foi possível conectar: ', error);
 }
 
-module.exports = sequelize;
+export default sequelize;

@@ -1,26 +1,16 @@
 'use strict';
 
-/**
- * Imports
- */
-import Cookie from '../../node_modules/js-cookie/dist/js.cookie.mjs';
+let logged = false;
 
-/**
- * Declarações
- */
-let userName = Cookie.get('user');
-let userPic = localStorage.getItem(`${userName}Pic`);
-let logged = Cookie.get('logged');
 let menu = '';
 
-/**
- * Verifica se há usuário logado
- */
 if (logged === 'true') {
   menu = '/menu-sign.html';
 } else {
   menu = '/menu.html';
 }
+
+console.log(menu);
 
 function deleteCookies() {
   Cookie.remove('user');

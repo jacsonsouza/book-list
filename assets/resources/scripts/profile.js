@@ -1,6 +1,6 @@
 'use strict';
 
-import Cookie from '../../../node_modules/js-cookie/dist/js.cookie.mjs';
+import Cookie from 'js-cookie/dist/js.cookie.mjs';
 
 let userName = Cookie.get('user');
 let userPic = localStorage.getItem(`${userName}Pic`);

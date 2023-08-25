@@ -1,16 +1,33 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
-const Controller = require('./controller.js');
+import { Router } from 'express';
 
-router.get('/', (req, res) => {
-  res.sendFile(
-    '/home/jacson/Documentos/web2/organizador-de-series-livros/index.html'
-  );
+const router = Router();
+
+import BookController from '../controllers/bookController.js';
+import UserController from '../controllers/userController.js';
+import SignUpController from '../controllers/SignUpController.js';
+
+import { resolve } from 'path';
+
+router.get('/livros', BookController.render);
+
+router.get('/livros/todos', BookController.getBooks);
+
+router.get('/livros/cadastro', BookController.render);
+
+router.post('/livros/cadastro', BookController.addBook);
+
+router.get('/livro/:id', BookController.getBooks);
+
+router.get('/login', (req, res) => {
+  res.sendFile(resolve('app/view/login.html'));
 });
-router.get('/profile', Controller.userProfile);
-router.post('/login', Controller.userLogin);
-router.post('/add', Controller.createUserSave);
 
-module.exports = router;
+router.post('/login', UserController.userLogin);
+
+router.get('/cadastro', SignUpController.renderView);
+
+router.post('/cadastro', SignUpController.createUser);
+
+export default router;
